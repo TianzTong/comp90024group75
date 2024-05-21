@@ -1,18 +1,23 @@
 import csv
 import os
+import requests
 
-URL = 'https://127.0.0.1:9090/affords'
+URL = 'http://127.0.0.1:9090/afford'
 FILENAME =os.getcwd() + "/backend/res/sgs.csv"
 rows = []
+id = 1
 with open(FILENAME, 'r') as file:
     csvreader = csv.reader(file)
     header = next(csvreader)
     for row in csvreader:
         record = {}
         for index, column in enumerate(row):
+            errorcode = -1
             if(column == 'null'):
+                errorcode = 1
                 #print("null value detected")
                 break
+            
             if index == 0:
                 record["2019q3"] = column
             elif index == 3:
@@ -35,12 +40,16 @@ with open(FILENAME, 'r') as file:
                 record["2020q4"] = column
             elif index == 12:
                 record["2021q1"] = column
-                
-        print(record)
+        if errorcode == 1:
+            continue
+        res = requests.post(URL + "/" + str(id),json=record)
+        id += 1
+        print(res.content)
+        
                 
             
             
-        rows.append(row)
+    
         
 
         

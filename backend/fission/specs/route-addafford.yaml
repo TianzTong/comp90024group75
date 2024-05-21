@@ -1,0 +1,22 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: addafford
+spec:
+  createingress: false
+  functionref:
+    functionweights: null
+    name: addafford
+    type: name
+  host: ""
+  ingressconfig:
+    annotations: null
+    host: '*'
+    path: /afford/{id}
+    tls: ""
+  method: ""
+  methods:
+  - POST
+  prefix: ""
+  relativeurl: /afford/{id}
