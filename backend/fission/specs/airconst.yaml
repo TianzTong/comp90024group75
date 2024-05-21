@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: default
+  name: air-const
+data:
+  ES_USERNAME: elastic
+  ES_PASSWORD: elastic
+  URL: https://gateway.api.epa.vic.gov.au/environmentMonitoring/v1/sites?environmentalSegment=air
+  SUB_KEY: 1dc2f160a2a441af82171e3e01ca4f2f

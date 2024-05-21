@@ -2,17 +2,27 @@ import csv
 import os
 import requests
 
+# URL to http trigger for fission
 URL = 'http://127.0.0.1:9090/afford'
+
+# file url to open
 FILENAME =os.getcwd() + "/backend/res/sgs.csv"
-rows = []
+
 id = 1
+
 with open(FILENAME, 'r') as file:
+    
+    # read the csv file
     csvreader = csv.reader(file)
+    
+    # jump the first row as header
     header = next(csvreader)
+    
     for row in csvreader:
         record = {}
+        errorcode = -1
         for index, column in enumerate(row):
-            errorcode = -1
+            
             if(column == 'null'):
                 errorcode = 1
                 #print("null value detected")

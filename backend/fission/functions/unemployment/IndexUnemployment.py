@@ -18,7 +18,7 @@ def main():
     # send the http request to the elastic search to index the document
     res = client.index(
         
-        index='affords',
+        index='unemployment',
         id=documentID,
         document=jsonSend
     )
