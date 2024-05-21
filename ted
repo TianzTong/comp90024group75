@@ -1,0 +1,51 @@
+curl -XPUT -k 'https://127.0.0.1:9200/affords'\
+   --header 'Content-Type: application/json'\
+   --data '{
+    "settings": {
+        "index": {
+            "number_of_shards": 3,
+            "number_of_replicas": 1
+        }
+    },
+    "mappings": {
+        "properties": {
+            "id": {
+                "type": "keyword"
+            },
+            "state": {
+                "type": "text"
+            },
+            "2019q1": {
+                "type": "float"
+            },
+            "2019q2": {
+                "type": "float"
+            },
+            "2019q3": {
+                "type": "float"
+            },
+            "2019q4": {
+                "type": "float"
+            },
+            "2020q1": {
+                "type": "float"
+            },
+            "2020q2": {
+                "type": "float"
+            },
+            "2020q3": {
+                "type": "float"
+            },
+            "2020q4": {
+                "type": "float"
+            },
+            "2021q1": {
+                "type": "float"
+            },
+            "2021q2": {
+                "type": "float"
+            }
+        }
+    }
+}'\
+   --user 'elastic:elastic' | jq '.'
