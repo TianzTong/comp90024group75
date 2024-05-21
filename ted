@@ -49,3 +49,21 @@ curl -XPUT -k 'https://127.0.0.1:9200/affords'\
     }
 }'\
    --user 'elastic:elastic' | jq '.'
+
+(
+   cd fission
+   fission env create --name python39x --spec --image lmorandini/python39x:1.0.0 --builder fission/python-builder-3.9
+ )  
+ 
+ (
+  cd fission
+  fission function create --name addaffords --env python39x --code ./backend
+)  
+
+
+(
+  cd fission
+  fission route create --spec --name addafford --function addafford \
+    --method POST \
+    --url '/afford/{id}'
+  )

@@ -1,0 +1,37 @@
+fission package create --sourcearchive ./fission/addaffords.zip\
+  --env python\
+  --name addaffords\
+  --buildcmd './build.sh'
+
+(
+  cd fission/functions/addaffords
+  zip -r addaffords.zip .
+  mv addaffords.zip ../../
+)
+
+fission fn create --name addaffords\
+  --pkg addaffords\
+  --env python\
+  --entrypoint "addAffords.main" # Function name and entrypoint
+
+(
+  cd fission
+  fission package create --spec --name addaffords \
+    --source ./functions/affords/*.py \
+    --source ./functions/affords/*.txt \
+    --source ./functions/affords/*.sh \
+    --env python \
+    --buildcmd './build.sh'
+  fission fn create --spec --name addaffords \
+    --pkg addaffords \
+    --env python \
+    --entrypoint "addAffords.main"
+)
+
+(
+  cd fission
+  fission route create --spec --name addaffords --function addaffords \
+    --method POST \
+    --url '/affords/{id}'
+)
+
