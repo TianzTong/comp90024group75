@@ -53,3 +53,55 @@ spec:
       namespace: ""
   requestsPerPod: 1
   resources: {}
+
+---
+include:
+- ./functions/airmonitor/airmonitor.py
+kind: ArchiveUploadSpec
+name: functions-airmonitor-airmonitor-py-cAOB
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: harvestair-b1becdcc-7b13-496d-9a7f-3d7a25e237e8
+spec:
+  deployment:
+    checksum: {}
+    type: url
+    url: archive://functions-airmonitor-airmonitor-py-cAOB
+  environment:
+    name: python39x
+    namespace: ""
+  source:
+    checksum: {}
+status:
+  buildstatus: none
+  lastUpdateTimestamp: "2024-05-21T22:47:52Z"
+
+---
+include:
+- ./functions/airmonitor/airmonitor.py
+kind: ArchiveUploadSpec
+name: functions-airmonitor-airmonitor-py-7AZe
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: harvestair-ffbc74fd-4d2b-49a7-a52b-448edbebae46
+spec:
+  deployment:
+    checksum: {}
+    type: url
+    url: archive://functions-airmonitor-airmonitor-py-7AZe
+  environment:
+    name: python39x
+    namespace: ""
+  source:
+    checksum: {}
+status:
+  buildstatus: none
+  lastUpdateTimestamp: "2024-05-21T22:49:02Z"

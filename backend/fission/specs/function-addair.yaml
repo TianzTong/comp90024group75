@@ -1,0 +1,52 @@
+include:
+- ./functions/airmonitor/addAir.py
+kind: ArchiveUploadSpec
+name: functions-airmonitor-addair-py-yWGH
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: addair-f7f6108a-4e4e-4674-a14c-8922bbb593db
+spec:
+  deployment:
+    checksum: {}
+    type: url
+    url: archive://functions-airmonitor-addair-py-yWGH
+  environment:
+    name: python39x
+    namespace: ""
+  source:
+    checksum: {}
+status:
+  buildstatus: none
+  lastUpdateTimestamp: "2024-05-21T22:44:47Z"
+
+---
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: addair
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: poolmgr
+      MaxScale: 0
+      MinScale: 0
+      SpecializationTimeout: 120
+      TargetCPUPercent: 0
+    StrategyType: execution
+  concurrency: 500
+  environment:
+    name: python39x
+    namespace: ""
+  functionTimeout: 60
+  idletimeout: 120
+  package:
+    packageref:
+      name: addair-f7f6108a-4e4e-4674-a14c-8922bbb593db
+      namespace: ""
+  requestsPerPod: 1
+  resources: {}
