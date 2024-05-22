@@ -1,0 +1,52 @@
+include:
+- ./functions/tweet/getTweets.py
+kind: ArchiveUploadSpec
+name: functions-tweet-gettweets-py-kUCR
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: gettweets-47886db0-60cc-4aa7-bc42-3970036fff14
+spec:
+  deployment:
+    checksum: {}
+    type: url
+    url: archive://functions-tweet-gettweets-py-kUCR
+  environment:
+    name: python39x
+    namespace: ""
+  source:
+    checksum: {}
+status:
+  buildstatus: none
+  lastUpdateTimestamp: "2024-05-22T00:44:06Z"
+
+---
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: gettweets
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: poolmgr
+      MaxScale: 0
+      MinScale: 0
+      SpecializationTimeout: 120
+      TargetCPUPercent: 0
+    StrategyType: execution
+  concurrency: 500
+  environment:
+    name: python39x
+    namespace: ""
+  functionTimeout: 60
+  idletimeout: 120
+  package:
+    packageref:
+      name: gettweets-47886db0-60cc-4aa7-bc42-3970036fff14
+      namespace: ""
+  requestsPerPod: 1
+  resources: {}

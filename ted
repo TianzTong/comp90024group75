@@ -1,4 +1,7 @@
-curl -XPUT -k 'https://127.0.0.1:9200/affords'\
+curl 'https://gateway.api.epa.vic.gov.au/environmentMonitoring/v1/sites?environmentalSegment=air'
+    -H "Ocp-Apim-Subscription-Key: 1dc2f160a2a441af82171e3e01ca4f2f"
+
+curl -XPUT -k 'https://127.0.0.1:9200/unemployment'\
    --header 'Content-Type: application/json'\
    --data '{
     "settings": {
@@ -9,42 +12,145 @@ curl -XPUT -k 'https://127.0.0.1:9200/affords'\
     },
     "mappings": {
         "properties": {
-            "id": {
+            "fid": {
                 "type": "keyword"
             },
-            "state": {
+            "mar_11": {
+                "type": "integer"
+            },
+            "mar_12": {
+                "type": "integer"
+            },
+            "mar_13": {
+                "type": "integer"
+            },
+            "mar_14": {
+                "type": "integer"
+            },
+            "mar_15": {
+                "type": "integer"
+            },
+            "mar_16": {
+                "type": "integer"
+            },
+            "jun_21": {
+                "type": "integer"
+            },
+            "jun_20": {
+                "type": "integer"
+            },
+            "mar_18": {
+                "type": "integer"
+            },
+            "dec_19": {
+                "type": "integer"
+            },
+            "mar_19": {
+                "type": "integer"
+            },
+            "dec_18": {
+                "type": "integer"
+            },
+            "sep_20": {
+                "type": "integer"
+            },
+            "dec_15": {
+                "type": "integer"
+            },
+            "dec_14": {
+                "type": "integer"
+            },
+            "dec_17": {
+                "type": "integer"
+            },
+            "dec_16": {
+                "type": "integer"
+            },
+            "sep_14": {
+                "type": "integer"
+            },
+            "sep_15": {
+                "type": "integer"
+            },
+            "sep_16": {
+                "type": "integer"
+            },
+            "sep_17": {
+                "type": "integer"
+            },
+            "sep_11": {
+                "type": "integer"
+            },
+            "sep_12": {
+                "type": "integer"
+            },
+            "sep_13": {
+                "type": "integer"
+            },
+            "dec_20": {
+                "type": "integer"
+            },
+            "jun_19": {
+                "type": "integer"
+            },
+            "sep_18": {
+                "type": "integer"
+            },
+            "jun_15": {
+                "type": "integer"
+            },
+            "sep_19": {
+                "type": "integer"
+            },
+            "jun_16": {
+                "type": "integer"
+            },
+            "mar_20": {
+                "type": "integer"
+            },
+            "jun_17": {
+                "type": "integer"
+            },
+            "jun_18": {
+                "type": "integer"
+            },
+            "jun_14": {
+                "type": "integer"
+            },
+            "jun_13": {
+                "type": "integer"
+            },
+            "jun_12": {
+                "type": "integer"
+            },
+            "jun_11": {
+                "type": "integer"
+            },
+            "lga_code_2021_asgs": {
+                "type": "integer"
+            },
+            "mar_21": {
+                "type": "integer"
+            },
+            "lga_name_2021_asgs": {
                 "type": "text"
             },
-            "2019q1": {
-                "type": "float"
+            "sep_21": {
+                "type": "integer"
             },
-            "2019q2": {
-                "type": "float"
+            "dec_13": {
+                "type": "integer"
             },
-            "2019q3": {
-                "type": "float"
+            "dec_12": {
+                "type": "integer"
             },
-            "2019q4": {
-                "type": "float"
+            "dec_11": {
+                "type": "integer"
             },
-            "2020q1": {
-                "type": "float"
-            },
-            "2020q2": {
-                "type": "float"
-            },
-            "2020q3": {
-                "type": "float"
-            },
-            "2020q4": {
-                "type": "float"
-            },
-            "2021q1": {
-                "type": "float"
-            },
-            "2021q2": {
-                "type": "float"
+            "dec_10": {
+                "type": "integer"
             }
+
         }
     }
 }'\
@@ -67,3 +173,103 @@ curl -XPUT -k 'https://127.0.0.1:9200/affords'\
     --method POST \
     --url '/afford/{id}'
   )
+
+(
+  cd fission
+  fission function create --name addUnemployment --spec --env python39x --code ./backend
+)  
+(
+    cd fission
+    fission timer create --name everyminute --spec --function harvestair --cron "@hourly"
+)
+(
+  cd fission
+  fission route create --spec --name addUnemployment --function addUnemployment \
+    --method POST \
+    --url '/unemployment/{id}'
+  )
+
+(
+  cd fission
+  
+  fission function create --spec --name harvestair --env python39x --code ./functions/airmonitor/airmonitor.py --configmap air-const
+
+)
+curl -XPUT -k 'https://127.0.0.1:9200/air'\
+   --header 'Content-Type: application/json'\
+   --data '{
+    "settings": {
+        "index": {
+            "number_of_shards": 3,
+            "number_of_replicas": 1
+        }
+    },
+    "mappings": {
+        "properties": {
+            "siteID": {
+                "type": "text"
+            },
+            "siteType": {
+                "type": "text"
+            },
+            "siteName": {
+                "type": "text"
+            },
+            "until": {
+                "type": "date"
+            },
+            "since": {
+                "type": "date"
+            },
+            "healthParameter": {
+                "type": "text"
+            },
+            "averageValue": {
+                "type": "text"
+            },
+            "location": {
+                "type": "geo_point"
+            }
+        }
+    }
+}'\
+--user 'elastic:elastic' | jq '.'
+
+
+
+curl -XPUT -k 'https://127.0.0.1:9200/air' \
+   --user 'elastic:elastic' \
+   --header 'Content-Type: application/json' \
+   --data '{
+    "settings": {
+        "index": {
+            "number_of_shards": 3,
+            "number_of_replicas": 1
+        }
+    },
+    "mappings": {
+        "properties": {
+            "siteID": {
+                "type": "text"
+            },
+            "siteType": {
+                "type": "text"
+            },
+            "siteName": {
+                "type": "text"
+            },
+            "until": {
+                "type": "date"
+            },
+            "since": {
+                "type": "date"
+            },
+            "healthParameter": {
+                "type": "text"
+            },
+            "averageValue": {
+                "type": "text"
+            }
+        }
+    }
+}'  | jq '.'
