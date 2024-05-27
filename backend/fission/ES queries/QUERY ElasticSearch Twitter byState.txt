@@ -1,0 +1,34 @@
+{
+  "size": 0,
+  "_source": { "includes": ["State", "Sentiment"]},
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "range": {
+            "Date": {
+              "gte": "2021-06-01",
+              "lte": "2022-09-01"
+            }
+          }
+        }
+      ]
+    }
+  }
+  "aggs": {
+    "State": {
+      "terms": {
+        "field": "State",
+        "include": ["Australian Capital Territory", "New South Whales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia"]
+      },
+      "aggs": {
+        "Sentiment": {
+          "sum": {
+            "field": "Sentiment"
+          }
+        }
+      }
+    }
+  }
+}
+
