@@ -26,9 +26,9 @@ print(rjson)
 
 # Scan and store daily Twitter data.
 twitter = {}
-for hit in rjson['result']['aggregations']:
-    date = pd.to_datetime(hit["_source"]["Date"]).normalize()
-    sentiment = hit["_source"]["Sentiment"]
+for bucket in rjson["result"]["aggregations"]["Date"]["buckets"]:
+    date = pd.to_datetime(bucket["key_as_string"]).normalize()
+    sentiment = float(hit["Sentiment"]["value"])
     if date not in twitter:
         twitter[date] = 0
     twitter[date] += sentiment
