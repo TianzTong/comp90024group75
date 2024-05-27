@@ -4,7 +4,7 @@ import requests
 URL = 'http://127.0.0.1:9090/asx/daily'  # TODO INSERT URL.
 res = requests.get(URL)
 rjson = res.json()
-#print(len(rjson['result']['hits']))
+print(len(rjson['result']['hits']))
 
 # Scan and store daily ASX data.
 asx_daily = []
@@ -22,13 +22,12 @@ URL = 'http://127.0.0.1:9090/tweets/daily'  # TODO INSERT URL.
 res = requests.get(URL)
 
 rjson = res.json()
-print(rjson)
 
 # Scan and store daily Twitter data.
 twitter = {}
 for bucket in rjson["result"]["Date"]["buckets"]:
     date = pd.to_datetime(bucket["key_as_string"]).normalize()
-    sentiment = float(hit["Sentiment"]["value"])
+    sentiment = float(bucket["Sentiment"]["value"])
     if date not in twitter:
         twitter[date] = 0
     twitter[date] += sentiment

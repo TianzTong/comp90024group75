@@ -3,33 +3,36 @@ import pandas as pd
 
 URL = 'http://127.0.0.1:9090/tweets/state'  # TODO INSERT URL.
 res = requests.get(URL)
-print(res.content)
+#print(res.content)
 rjson = res.json()
 
 # Scan and store daily Twitter data.
 twitter = {}
-for hit in rjson['result']:
-    state = hit["_source"]["State"]
-    sentiment = hit["_source"]["Sentiment"]
+
+for hit in rjson['result']['State']["buckets"]:
+    state = hit["key"]
+    sentiment = hit["Sentiment"]["value"]
     if state not in twitter:
         twitter[state] = 0
     twitter[state] += sentiment
 df_twitter = pd.DataFrame(sorted(twitter.items()), columns=("State", "Sentiment"))
 df_twitter.head(10)
 
+
 # --------------------------- NEW CELL -----------------------------------------------------------------------
 
-URL = ''  # TODO INSERT URL.
+URL = 'http://127.0.0.1:9090/unemployment/mid'  # TODO INSERT URL.
 res = requests.get(URL)
 rjson = res.json()
+print(rjson)
 
 # Scan Unemployment file.
 unemployment_sep21 = {}
 unemployment_jun21 = {}
-for hit in rjson['result']['aggregations']:
-    state = hit["_source"]["State"]
-    sep21 = hit["_source"]["sep_21"]
-    jun21 = hit["_source"]["jun_21"]
+for hit in rjson['result']['State']['buckets']:
+    state = hit["key"]
+    sep21 = hit["sep_21"]['value']
+    jun21 = hit["jun_21"]['value']
 
     if state not in unemployment_jun21:
         unemployment_jun21[state] = 0
