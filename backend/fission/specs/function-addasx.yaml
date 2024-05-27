@@ -1,0 +1,52 @@
+include:
+- ./functions/asx/indexAsx.py
+kind: ArchiveUploadSpec
+name: functions-asx-indexasx-py-y9bz
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: addasx-81404c9d-350e-4755-bc9c-2c0559286294
+spec:
+  deployment:
+    checksum: {}
+    type: url
+    url: archive://functions-asx-indexasx-py-y9bz
+  environment:
+    name: python39x
+    namespace: ""
+  source:
+    checksum: {}
+status:
+  buildstatus: none
+  lastUpdateTimestamp: "2024-05-27T12:05:20Z"
+
+---
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: addasx
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: poolmgr
+      MaxScale: 0
+      MinScale: 0
+      SpecializationTimeout: 120
+      TargetCPUPercent: 0
+    StrategyType: execution
+  concurrency: 500
+  environment:
+    name: python39x
+    namespace: ""
+  functionTimeout: 60
+  idletimeout: 120
+  package:
+    packageref:
+      name: addasx-81404c9d-350e-4755-bc9c-2c0559286294
+      namespace: ""
+  requestsPerPod: 1
+  resources: {}

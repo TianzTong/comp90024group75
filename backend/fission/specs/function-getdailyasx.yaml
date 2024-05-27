@@ -1,0 +1,52 @@
+include:
+- ./functions/asx/getDailyAsx.py
+kind: ArchiveUploadSpec
+name: functions-asx-getdailyasx-py-WoUo
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: getdailyasx-bfa751cc-5fc4-4c7b-a94a-2f6c6e3f411f
+spec:
+  deployment:
+    checksum: {}
+    type: url
+    url: archive://functions-asx-getdailyasx-py-WoUo
+  environment:
+    name: python39x
+    namespace: ""
+  source:
+    checksum: {}
+status:
+  buildstatus: none
+  lastUpdateTimestamp: "2024-05-27T13:38:48Z"
+
+---
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: getdailyasx
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: poolmgr
+      MaxScale: 0
+      MinScale: 0
+      SpecializationTimeout: 120
+      TargetCPUPercent: 0
+    StrategyType: execution
+  concurrency: 500
+  environment:
+    name: python39x
+    namespace: ""
+  functionTimeout: 60
+  idletimeout: 120
+  package:
+    packageref:
+      name: getdailyasx-bfa751cc-5fc4-4c7b-a94a-2f6c6e3f411f
+      namespace: ""
+  requestsPerPod: 1
+  resources: {}
