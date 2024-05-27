@@ -1,13 +1,14 @@
 import requests
 import pandas as pd
 
-URL = ''  # TODO INSERT URL.
+URL = 'http://127.0.0.1:9090/tweets/state'  # TODO INSERT URL.
 res = requests.get(URL)
+print(res.content)
 rjson = res.json()
 
 # Scan and store daily Twitter data.
 twitter = {}
-for hit in rjson['result']['aggregations']:
+for hit in rjson['result']:
     state = hit["_source"]["State"]
     sentiment = hit["_source"]["Sentiment"]
     if state not in twitter:
