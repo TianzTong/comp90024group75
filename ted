@@ -301,3 +301,34 @@ curl -XPUT -k 'https://127.0.0.1:9200/asx'\
    kubectl port-forward service/elasticsearch-master -n elastic 9200:9200
    kubectl port-forward service/kibana-kibana -n elastic 5601:5601
    fission fn log -f --name addasx
+
+   To run the frontend code calling fission function
+   1. SSH Tunnel
+   2. Port forwarding for k8s and its service(Open a new terminal for each, 3 in total)
+   ``kubectl port-forward service/router -n fission 9090:80
+   kubectl port-forward service/elasticsearch-master -n elastic 9200:9200
+   kubectl port-forward service/kibana-kibana -n elastic 5601:5601``
+   3. Run the python code
+
+   To modify codes for fission function,I have already create spec for all existed fission functions.
+   Run ``fission spec apply --specdir fission/specs --wait`` to apply the changes
+
+   To add new fission function
+   1. Create the function spec
+   ``(
+   cd fission
+   fission function create --name <function-name> --spec --env python39x --code <path-to-python-file>
+ )  ``
+   2. create the router spec
+``(
+  cd fission
+  fission route create --spec --name <router-name> --function <function-name> \
+    --method <POST or GET> \
+    --url '<url>'
+  )``
+  3. Apply the spec ``fission spec apply --specdir fission/specs --wait``
+
+  Commly used command:
+  - List all functions deployed: ``fission function list``
+  - List all httptrigger(router): ``fission httptrigger list``
+  - Openup log console for a function: ``fission fn log -f --name <function-name>``
