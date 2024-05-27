@@ -1,0 +1,23 @@
+}
+  "_source": {
+    "includes": ["Date", "Price", "Change %"]
+  },
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "range": {
+            "date_field": {
+              "gte": "01/06/2021",
+              "lte": "01/06/2022"
+            }
+          }
+        }
+      ],
+    }
+  },
+}
+
+
+
+

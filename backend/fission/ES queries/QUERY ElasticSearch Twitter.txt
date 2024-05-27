@@ -1,0 +1,36 @@
+{
+  "size": 0,
+  "_source": { "includes": ["State", "Datetime", "Sentiment"]},
+  "query": {
+    "bool": {
+      "must_not": {
+        "script": {
+          "source": "for (field in doc.keySet()) {if (Double.isNaN(doc[field].value)) { return true; } } return false;",
+        }
+      }
+    }
+  },
+  "aggs": {
+    "State": {
+      "terms": {
+        "field": "State",
+      },
+      "aggs": {
+        "Date": {
+          "date_histogram": {
+            "field": "Datetime",
+            "calendar_interval": "day"
+          },
+          "aggs": {
+            "Sentiment": {
+              "sum": {
+                "field": "Sentiment"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
