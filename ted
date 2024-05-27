@@ -195,7 +195,7 @@ curl -XPUT -k 'https://127.0.0.1:9200/unemployment'\
   fission function create --spec --name harvestair --env python39x --code ./functions/airmonitor/airmonitor.py --configmap air-const
 
 )
-curl -XPUT -k 'https://127.0.0.1:9200/air'\
+curl -XPUT -k 'https://127.0.0.1:9200/asx'\
    --header 'Content-Type: application/json'\
    --data '{
     "settings": {
@@ -206,29 +206,20 @@ curl -XPUT -k 'https://127.0.0.1:9200/air'\
     },
     "mappings": {
         "properties": {
-            "siteID": {
-                "type": "text"
-            },
-            "siteType": {
-                "type": "text"
-            },
-            "siteName": {
-                "type": "text"
-            },
-            "until": {
+            "Date": {
                 "type": "date"
             },
-            "since": {
-                "type": "date"
+            "Price": {
+                "type": "float"
             },
-            "healthParameter": {
+            "Change %": {
                 "type": "text"
             },
-            "averageValue": {
-                "type": "text"
+            "High": {
+                "type": "float"
             },
-            "location": {
-                "type": "geo_point"
+            "Low": {
+                "type": "float"
             }
         }
     }
@@ -273,3 +264,40 @@ curl -XPUT -k 'https://127.0.0.1:9200/air' \
         }
     }
 }'  | jq '.'
+
+curl -XPUT -k 'https://127.0.0.1:9200/asx'\
+   --header 'Content-Type: application/json'\
+   --data '{
+    "settings": {
+        "index": {
+            "number_of_shards": 3,
+            "number_of_replicas": 1
+        }
+    },
+    "mappings": {
+        "properties": {
+            "Date": {
+                "type": "date"
+            },
+            "Change %": {
+                "type": "text"
+            },
+            "Price": {
+                "type": "float"
+            },
+            "High": {
+                "type": "float"
+            },
+            "Low": {
+                "type": "float"
+            }
+        }
+    }
+}'\
+   --user 'elastic:elastic' | jq '.'
+
+   fission spec apply --specdir fission/specs --wait
+   kubectl port-forward service/router -n fission 9090:80
+   kubectl port-forward service/elasticsearch-master -n elastic 9200:9200
+   kubectl port-forward service/kibana-kibana -n elastic 5601:5601
+   fission fn log -f --name addasx

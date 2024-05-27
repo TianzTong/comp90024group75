@@ -1,15 +1,16 @@
 import pandas as pd
 import requests
 
-URL = ''  # TODO INSERT URL.
+URL = 'http://127.0.0.1:9090/asx/daily'  # TODO INSERT URL.
 res = requests.get(URL)
 rjson = res.json()
+#print(len(rjson['result']['hits']))
 
 # Scan and store daily ASX data.
 asx_daily = []
 for hit in rjson['result']['hits']:
-    date = pd.to_datetime(hit["_source"]["Date"], format="%d/%m/%Y").normalize()
-    price = float(hit["_source"]["Price"].replace(",", ""))
+    date = pd.to_datetime(hit["_source"]["Date"], format="%Y-%m-%d").normalize()
+    price = float(hit["_source"]["Price"])
     change = float(hit["_source"]["Change %"][:-1])
     asx_daily.append((date, price, change))
 asx_daily.sort()
@@ -17,9 +18,11 @@ df_asx_daily = pd.DataFrame(asx_daily, columns=("Date", "ASX Price", "ASX Change
 df_asx_daily.head(10)
 
 # --------------------------- NEW CELL -----------------------------------------------------------------------
-URL = ''  # TODO INSERT URL.
+URL = 'http://127.0.0.1:9090/tweets/daily'  # TODO INSERT URL.
 res = requests.get(URL)
+
 rjson = res.json()
+print(rjson)
 
 # Scan and store daily Twitter data.
 twitter = {}
@@ -105,4 +108,3 @@ for field_name, color in zip(field_names, colors):
     plt.legend()
     plt.grid(True)
     plt.show()
-
