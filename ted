@@ -33,6 +33,9 @@ curl -XPUT -k 'https://127.0.0.1:9200/unemployment'\
             "mar_16": {
                 "type": "integer"
             },
+            "mar_17": {
+                "type": "integer"
+            },
             "jun_21": {
                 "type": "integer"
             },
