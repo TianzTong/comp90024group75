@@ -11,7 +11,10 @@ asx_daily = []
 for hit in rjson['result']['hits']:
     date = pd.to_datetime(hit["_source"]["Date"], format="%Y-%m-%d").normalize()
     price = float(hit["_source"]["Price"])
-    change = float(hit["_source"]["Change %"][:-1])
+    change_string = hit["_source"]["Change %"]
+    while change_string[-1] == '%':
+        change_string = change_string[:-1]
+    change = float(change_string)
     asx_daily.append((date, price, change))
 asx_daily.sort()
 df_asx_daily = pd.DataFrame(asx_daily, columns=("Date", "ASX Price", "ASX Change (%)"))
