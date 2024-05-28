@@ -22,41 +22,24 @@ URL = 'http://127.0.0.1:9090/tweets/daily'  # TODO INSERT URL.
 res = requests.get(URL)
 
 rjson = res.json()
-"""
+
 # Exclude dates that ElasticSearch falsely initialized
 EXCLUDE_DATES = {pd.to_datetime('2021-06-25'), pd.to_datetime('2022-03-29'), pd.to_datetime('2021-09-08'),
                  pd.to_datetime('2021-07-02'), pd.to_datetime('2021-09-09'), pd.to_datetime('2021-09-10'),
                  pd.to_datetime('2021-06-27'), pd.to_datetime('2021-09-07'), pd.to_datetime('2021-06-26'),
                  pd.to_datetime('2021-10-10'), pd.to_datetime('2021-07-03')} 
-
+                 
 # Scan and store daily Twitter data.
-twitter = {}
-for hit in rjson["result"]["Date"]["buckets"]:
-    date = pd.to_datetime(hit["key_as_string"])
-    if date not in EXCLUDE_DATES:
-        sentiment = float(hit["Sentiment"]["value"])
-        if date not in twitter:
-            twitter[date] = 0
-        twitter[date] += sentiment
-    else :
-        EXCLUDE_DATES.remove(date)
-df_twitter_daily = pd.DataFrame(sorted(twitter.items()), columns=("Date", "Sentiment"))
-df_twitter_daily.head(10)
-"""
-# Scan and store daily Twitter data.
-twitter = {}
+twitter = {)
 for bucket in rjson["result"]["Date"]["buckets"]:
     date = pd.to_datetime(bucket["key_as_string"]).normalize()
-    sentiment = float(bucket["Sentiment"]["value"])
-    if sentiment == 0:
-        continue
-    if (date not in twitter) :
-        twitter[date] = 0
-    twitter[date] += sentiment
+    if date not in EXCLUDE_DATES:
+        sentiment = float(bucket["Sentiment"]["value"])
+        if sentiment == 0:
+            continue
+        twitter[date] += sentiment
 df_twitter_daily = pd.DataFrame(sorted(twitter.items()), columns=("Date", "Sentiment"))
 df_twitter_daily.head(10)
-for key ,value in twitter.items():
-    print(str(key) + ": " + str(value))
 
 # --------------------------- NEW CELL -----------------------------------------------------------------------
 
