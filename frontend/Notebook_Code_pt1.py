@@ -30,7 +30,7 @@ EXCLUDE_DATES = {pd.to_datetime('2021-06-25'), pd.to_datetime('2022-03-29'), pd.
                  pd.to_datetime('2021-10-10'), pd.to_datetime('2021-07-03')} 
                  
 # Scan and store daily Twitter data.
-twitter = {)
+twitter = {}
 for bucket in rjson["result"]["Date"]["buckets"]:
     date = pd.to_datetime(bucket["key_as_string"]).normalize()
     if date not in EXCLUDE_DATES:
