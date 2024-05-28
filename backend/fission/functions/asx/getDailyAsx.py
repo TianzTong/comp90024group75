@@ -13,7 +13,7 @@ def main():
     )
 
     # get matches from the range of time in VIC
-    res = client.search(index="asx",_source=["Date", "Price", "Change %"],query={
+    res = client.search(index="asx",size=1000,_source=["Date", "Price", "Change %"],query={
       "bool": {
         "must": [
           {
