@@ -33,7 +33,7 @@ def main():
             "State": {
             "terms": {
                 "field": "State",
-                "include": ["Australian Capital Territory", "New South Whales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia"]
+                "include": ["Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia"]
             },
             "aggs": {
                 "Sentiment": {
