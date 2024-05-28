@@ -1,0 +1,20 @@
+ASX:
+[GET] '/asx/daily' : Get daily asx documents
+[GET] '/asx/quarterly' : Get asx document sums for each quarter of a year
+[POST] '/asx/{id}' : index a new document for asx with {id}
+
+Tweets:
+[GET]  '/tweets/daily' : Get daily tweet documents
+[GET]  '/tweets' : Get all the tweets
+[GET]  '/tweets/state' : Get tweets grouped by state
+
+Unemployment:
+[GET]  '/unemployment/mid' : Get unemployment documents for mid year
+[GET]  '/unemployment/quarterly' : Get unemployment sums for each quarter
+[POST] '/unemployment/{id}' : index a new document for unemployment with {id}
+[GET]  '/unemployment' : Get all the unemployment
+
+Air:
+[POST] '/air' : index a new document for air condition
+[POST] '/harvestair' : Harvest the air from the EPA
+
