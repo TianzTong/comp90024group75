@@ -35,6 +35,8 @@ for bucket in rjson["result"]["Date"]["buckets"]:
     date = pd.to_datetime(bucket["key_as_string"]).normalize()
     if date not in EXCLUDE_DATES:
         sentiment = float(bucket["Sentiment"]["value"])
+        if date not in twitter:
+            twitter[date] = 0
         twitter[date] += sentiment
 df_twitter_daily = pd.DataFrame(sorted(twitter.items()), columns=("Date", "Sentiment"))
 df_twitter_daily.head(10)
