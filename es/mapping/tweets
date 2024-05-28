@@ -1,0 +1,37 @@
+{
+  "mappings": {
+    "_meta": {
+      "created_by": "file-data-visualizer"
+    },
+    "properties": {
+      "@timestamp": {
+        "type": "date"
+      },
+      "City/Town": {
+        "type": "keyword"
+      },
+      "Datetime": {
+        "type": "date",
+        "format": "yyyy-MM-dd HH:mm:ss"
+      },
+      "Sentiment": {
+        "type": "double"
+      },
+      "State": {
+        "type": "keyword"
+      },
+      "latitude max": {
+        "type": "double"
+      },
+      "latitude min": {
+        "type": "double"
+      },
+      "longitude max": {
+        "type": "double"
+      },
+      "longitude min": {
+        "type": "double"
+      }
+    }
+  }
+}

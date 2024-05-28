@@ -1,0 +1,27 @@
+{
+  "mappings": {
+    "properties": {
+      "averageValue": {
+        "type": "text"
+      },
+      "healthParameter": {
+        "type": "text"
+      },
+      "since": {
+        "type": "date"
+      },
+      "siteID": {
+        "type": "text"
+      },
+      "siteName": {
+        "type": "text"
+      },
+      "siteType": {
+        "type": "text"
+      },
+      "until": {
+        "type": "date"
+      }
+    }
+}
+}

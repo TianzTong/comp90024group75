@@ -1,0 +1,147 @@
+{
+  "mappings": {
+    "properties": {
+      "dec_10": {
+        "type": "integer"
+      },
+      "dec_11": {
+        "type": "integer"
+      },
+      "dec_12": {
+        "type": "integer"
+      },
+      "dec_13": {
+        "type": "integer"
+      },
+      "dec_14": {
+        "type": "integer"
+      },
+      "dec_15": {
+        "type": "integer"
+      },
+      "dec_16": {
+        "type": "integer"
+      },
+      "dec_17": {
+        "type": "integer"
+      },
+      "dec_18": {
+        "type": "integer"
+      },
+      "dec_19": {
+        "type": "integer"
+      },
+      "dec_20": {
+        "type": "integer"
+      },
+      "fid": {
+        "type": "keyword"
+      },
+      "jun_11": {
+        "type": "integer"
+      },
+      "jun_12": {
+        "type": "integer"
+      },
+      "jun_13": {
+        "type": "integer"
+      },
+      "jun_14": {
+        "type": "integer"
+      },
+      "jun_15": {
+        "type": "integer"
+      },
+      "jun_16": {
+        "type": "integer"
+      },
+      "jun_17": {
+        "type": "integer"
+      },
+      "jun_18": {
+        "type": "integer"
+      },
+      "jun_19": {
+        "type": "integer"
+      },
+      "jun_20": {
+        "type": "integer"
+      },
+      "jun_21": {
+        "type": "integer"
+      },
+      "lga_code_2021_asgs": {
+        "type": "integer"
+      },
+      "lga_name_2021_asgs": {
+        "type": "text"
+      },
+      "mar_11": {
+        "type": "integer"
+      },
+      "mar_12": {
+        "type": "integer"
+      },
+      "mar_13": {
+        "type": "integer"
+      },
+      "mar_14": {
+        "type": "integer"
+      },
+      "mar_15": {
+        "type": "integer"
+      },
+      "mar_16": {
+        "type": "integer"
+      },
+      "mar_17": {
+        "type": "integer"
+      },
+      "mar_18": {
+        "type": "integer"
+      },
+      "mar_19": {
+        "type": "integer"
+      },
+      "mar_20": {
+        "type": "integer"
+      },
+      "mar_21": {
+        "type": "integer"
+      },
+      "sep_11": {
+        "type": "integer"
+      },
+      "sep_12": {
+        "type": "integer"
+      },
+      "sep_13": {
+        "type": "integer"
+      },
+      "sep_14": {
+        "type": "integer"
+      },
+      "sep_15": {
+        "type": "integer"
+      },
+      "sep_16": {
+        "type": "integer"
+      },
+      "sep_17": {
+        "type": "integer"
+      },
+      "sep_18": {
+        "type": "integer"
+      },
+      "sep_19": {
+        "type": "integer"
+      },
+      "sep_20": {
+        "type": "integer"
+      },
+      "sep_21": {
+        "type": "integer"
+      }
+    }
+  }
+}

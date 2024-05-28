@@ -1,0 +1,21 @@
+{
+  "mappings": {
+    "properties": {
+      "Change %": {
+        "type": "text"
+      },
+      "Date": {
+        "type": "date"
+      },
+      "High": {
+        "type": "float"
+      },
+      "Low": {
+        "type": "float"
+      },
+      "Price": {
+        "type": "float"
+      }
+    }
+  }
+}
