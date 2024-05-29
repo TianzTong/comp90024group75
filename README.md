@@ -22,6 +22,7 @@ Our question can be more precisely reframed as three distinct questions:
 
 
 ## Directory structure
+\```
 .
 ├── backend
 │   ├── addAsx.py
@@ -101,6 +102,7 @@ Our question can be more precisely reframed as three distinct questions:
 │   └── Answers.ipynb
 ├── packagebuild
 └── ted
+\```
 
 ## Instruction
 # Setting up environment
